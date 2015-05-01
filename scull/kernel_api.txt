@@ -1,0 +1,95 @@
+unsigned long copy_to_user (void __user * to, const void * from, unsigned long
+n);
+
+Arguments
+
+to: Destination address, in user space. 
+from: Source address, in kernel space. 
+n: Number of bytes to copy. 
+
+Context
+
+User context only. This function may sleep.
+
+Description
+
+Copy data from kernel space to user space.  
+Returns number of bytes that could not be copied. On success, this will be zero. 
+
+================================================================================
+
+unsigned long __copy_from_user (void * to, const void __user * from,
+unsigned long n);
+
+Arguments
+
+to: Destination address, in kernel space. 
+from: Source address, in user space. 
+n: Number of bytes to copy. 
+
+Context
+User context only. This function may sleep.
+
+Description
+
+Copy data from user space to kernel space. Caller must check
+the specified block with access_ok before calling this function.
+Returns number of bytes that could not be copied. On success,
+this will be zero.
+If some data could not be copied, this function will pad the
+copied data to the requested size using zero bytes.
+
+
+================================================================================
+  __put_user ( x, ptr);
+
+  Arguments
+
+  x: Value to copy to user space. 
+  ptr: Destination address in user space. 
+
+Context
+          User context only. This function may sleep.
+
+Description
+          This macro copies a single simple value from kernel space to user
+          space. It supports simple types like char and int, but not larger
+          data types like structures or arrays.
+
+          ptr must have pointer-to-simple-variable type, and x must be
+          assignable to the result of dereferencing ptr.
+
+          Caller must check the pointer with access_ok before calling
+          this function.
+
+          Returns zero on success, or -EFAULT on error. 
+
+
+================================================================================
+
+           __get_user ( x, ptr);
+
+Arguments
+
+           x: Variable to store result. 
+               ptr: Source address, in user space. 
+
+Context
+                   User context only. This function may sleep.
+
+Description
+
+                   This macro copies a single simple variable from user
+                   space to kernel space. It supports simple types like
+                   char and int, but not larger data types like structures
+                   or arrays.
+
+                   ptr must have pointer-to-simple-variable type, and the
+                   result of dereferencing ptr must be assignable to x without
+                   a cast.
+
+                   Caller must check the pointer with access_ok before
+                   calling this function.
+
+                   Returns zero on success, or -EFAULT on error. On error,
+                   the variable x is set to zero. `

@@ -1,0 +1,39 @@
+type
+  the magic number used throughout the driver (_IOC_TAYPEBITS)
+
+number
+  the sequential number (_IOC_NRBITS)
+
+direction (from the app's view) 
+
+1 _IOC_NONE 
+2 _IOC_READ
+  reading from the device, so the driver must write to user space
+3 _IOC_WRITE
+4 _IOC_READ | _IOC_WRITE
+
+size (the size of user data, which is architecture dependent)
+the value of size is in the macro _IOC_SIZEBITS
+
+_IO(type, nr) 
+_IOR(type, nr, datatype) 
+_IOW(type, nr, datatype) 
+_IOWR(type, nr, datatype) 
+
+// access_ok is kernel-oriented: VERIFY_WRITE indicates write to the
+// user space
+// _IOC_READ/_IOC_WRITE is app oriented
+if (_IOC_DIR(cmd) & _IOC_READ)
+  access_ok(VERIFY_WRITE, (void __user*)arg, _IOC_SIZE(cmd));
+else if (_IOC_DIR(cmd) & _IOC_WRITE)
+  access_ok(VERIFY_READ, (void __user*)arg, _IOC_SIZE(cmd));
+else
+  return -EFAULT;
+
+
+put_user(datum, ptr)
+write the datum to user space
+The size of the data transfer depends on the type of ptr argument
+
+get_user(local, ptr)
+retrieve a single datum from user space

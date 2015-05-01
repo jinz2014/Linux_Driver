@@ -1,0 +1,1 @@
+cmd_/share/jinz/Linux_driver/chardrv/chardev-1.ko.unsigned := ld -r -m elf_x86_64 -T /usr/src/kernels/2.6.32-431.5.1.el6.x86_64/scripts/module-common.lds --build-id -o /share/jinz/Linux_driver/chardrv/chardev-1.ko.unsigned /share/jinz/Linux_driver/chardrv/chardev-1.o /share/jinz/Linux_driver/chardrv/chardev-1.mod.o 

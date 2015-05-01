@@ -1,0 +1,3 @@
+kernel//share/jinz/Linux_driver/chardrv/ofd.ko
+kernel//share/jinz/Linux_driver/chardrv/chardev.ko
+kernel//share/jinz/Linux_driver/chardrv/chardev-1.ko
